@@ -57,8 +57,8 @@ class Server implements ResourceControllerInterface,
     protected $userInfoController;
 
     // config classes
-    protected $grantTypes;
-    protected $responseTypes;
+    protected $grantTypes = array();
+    protected $responseTypes = array();
     protected $tokenType;
     protected $scopeUtil;
     protected $clientAssertionType;
@@ -460,7 +460,6 @@ class Server implements ResourceControllerInterface,
         if ($this->config['use_openid_connect']) {
             return new OpenIDAuthorizeController($this->storages['client'], $this->responseTypes, $config, $this->getScopeUtil());
         }
-
         return new AuthorizeController($this->storages['client'], $this->responseTypes, $config, $this->getScopeUtil());
     }
 
