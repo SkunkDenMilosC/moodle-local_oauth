@@ -40,6 +40,11 @@ if (isset($token['user_id']) && !empty($token['user_id'])) {
           $response->send();
     }
 
+    $user->courses = enrol_get_users_courses($user->id, true);
+    foreach ($user->courses as $key => $course) {
+        $user->courses[$key]->roles = get_user_roles(context_course::instance($course->id), $user->id);
+    }
+
     $logparams = array('userid' => $user->id);
     $event = \local_oauth\event\user_info_request::create($logparams);
     $event->trigger();
